@@ -7,13 +7,15 @@ from collections import deque
 import datetime
 
 # Settings imports
+import settings
+
+# Web-driver imports
+from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-
-import secrets
-import settings
 
 # Google API requirements & imports
 import httplib2
@@ -24,9 +26,6 @@ from oauth2client import client
 from oauth2client import tools
 import argparse
 
-# Web-driver imports
-from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/calendar-python-quickstart.json
@@ -281,7 +280,7 @@ def update_calendar(room_number, start, end):
         },
     }
     event = service.events().insert(
-        calendarId=secrets.schedule_id, body=event).execute()
+        calendarId=settings.schedule_id, body=event).execute()
 
     logging.info("Event created for " + start + ": " + event.get('htmlLink'))
     return
@@ -294,7 +293,7 @@ def email(subject, log):
 
     return requests.post(
         "https://api.mailgun.net/v3/skullhouse.nyc/messages",
-        auth=("api", secrets.api_key),
+        auth=("api", settings.api_key),
         data={"from": "Samuel Brown Wylie Mitchell <Samuel@skullhouse.nyc>",
               "to": "omega+automator@skullhouse.nyc",
               "subject": subject,
