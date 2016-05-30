@@ -60,3 +60,13 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# Secret ignores
+secrets.py
+client_secret.json
+settings.py
+*.csv
+
+# IDE ignores
+.idea/
+.python-version

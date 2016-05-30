@@ -1,0 +1,8 @@
+__author__ = 'Jason Yao'
+
+time_delta = 7
+description = "NYU Study Session"
+floor_number = "LL2"
+room_number = 16
+user_login_file = "userLogins.csv"
+time_preference = [12, 14, 16, 18, 20, 22, 10, 8, 6, 4, 2, 0]
