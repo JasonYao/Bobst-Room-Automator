@@ -268,10 +268,7 @@ def update_calendar(room_number, start, end):
             'dateTime': end,
             'timeZone': 'America/New_York',
         },
-        'attendees': [
-            {'email': 'nyuskulls@gmail.com'},
-            {'email': 'omega@skullhouse.nyc'},
-        ],
+        'attendees': settings.attendees,
         'reminders': {
             'useDefault': False,
             'overrides': [
@@ -288,14 +285,14 @@ def update_calendar(room_number, start, end):
 
 def email(subject, log):
     # Pull the contents back into a string and close the stream
-    logging.info("All users booked, emailing omega now")
+    logging.info("All users booked, emailing summary now")
     log_contents = log.getvalue()
 
     return requests.post(
         "https://api.mailgun.net/v3/skullhouse.nyc/messages",
         auth=("api", settings.api_key),
-        data={"from": "Samuel Brown Wylie Mitchell <Samuel@skullhouse.nyc>",
-              "to": "omega+automator@skullhouse.nyc",
+        data={"from": settings.from_email,
+              "to": settings.to_email,
               "subject": subject,
               "text": log_contents})
 

@@ -6,5 +6,14 @@ floor_number = "LL2"
 room_number = 16
 user_login_file = "userLogins.csv"
 time_preference = [12, 14, 16, 18, 20, 22, 10, 8, 6, 4, 2, 0]
+
 api_key = "key-YOUR-MAILGUN-API-KEY-HERE"
 schedule_id = 'YOUR-CALENDAR-ID-HERE@group.calendar.google.com'
+
+from_email = "SOME_GUY <SOME_GUY@YOUR_DOMAIN.com>"
+to_email = "SOME_OTHER_EMAIL@SOME_DOMAIN.com"
+
+attendees = [
+    {'email': 'attendee1@gmail.com'},
+    {'email': 'attendee2@gmail.com'},
+]
