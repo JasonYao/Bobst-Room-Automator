@@ -61,7 +61,7 @@ def setup_logging(date):
     logging.basicConfig(
         format=log_format,
         filename='log/' + date.isoformat() + '.log',
-        level=logging.DEBUG)
+        level=logging.INFO)
 
     # Setup the console handler with a StringIO object
     log_capture_string = io.StringIO()
@@ -291,7 +291,6 @@ def email(subject, log):
     # Pull the contents back into a string and close the stream
     logging.info("All users booked, emailing omega now")
     log_contents = log.getvalue()
-    log.close()
 
     return requests.post(
         "https://api.mailgun.net/v3/skullhouse.nyc/messages",
@@ -329,6 +328,7 @@ def main():
         # noinspection PyBroadException
         try:
             book_room(current_user, start_date, start_time, browser)
+            update_calendar(settings.floor_number + "-" + str(settings.room_number), start_datetime, end_datetime)
         except InvalidUserCredentialError as e:
             warning_message, unused_start_time = e.args
             logging.warning(warning_message)
@@ -345,12 +345,9 @@ def main():
             logging.info("Cleaning up browser")
             browser.implicitly_wait(10)
             browser.quit()
-            exit(0)
-
-        update_calendar("LL1-20", start_datetime, end_datetime)
-        exit(0)
 
     email("Bobst study room booked: " + start_date.isoformat(), log_capture_string)
+    log_capture_string.close()
     return
 
 
